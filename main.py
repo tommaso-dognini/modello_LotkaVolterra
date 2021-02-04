@@ -35,17 +35,22 @@ if pagina == 'HOME':  # pagina home
     # creo slider nella barra laterale per ogni parametro
     st.sidebar.title('Simulazione\n')
     st.sidebar.write('**1.Impostazioni grafici**')
-    grafico_pop = st.sidebar.radio('Grafico popolazioni', ['Unico', 'Doppio'], index=0)
+    grafico_pop = st.sidebar.radio('Grafico popolazioni', [
+                                   'Unico', 'Doppio'], index=0)
     grafico_orbite = st.sidebar.checkbox('Grafico orbite',)
 
     st.sidebar.write('**2.Impostazioni parametri**')
     pesci = st.sidebar.number_input('N° iniziale di pesci', step=1, value=10)
     orsi = st.sidebar.number_input('N° iniziale di orsi', step=1, value=3)
 
-    alpha = st.sidebar.slider('A', max_value=2.0, min_value=0.0, value=1.1) #tasso di crescita pesci
-    beta = st.sidebar.slider('B', max_value=2.0, min_value=0.0, value=0.4) # tasso di mortalita pesci
-    delta = st.sidebar.slider('C', max_value=2.0, min_value=0.0, value=0.1) # tasso di mortalità orsi se no pesci
-    gamma = st.sidebar.slider('D', max_value=10, min_value=0, value=2) #fattore n pesci per nuovo orso
+    # tasso di crescita pesci
+    alpha = st.sidebar.slider('A', max_value=2.0, min_value=0.0, value=1.1)
+    # tasso di mortalita pesci
+    beta = st.sidebar.slider('B', max_value=2.0, min_value=0.0, value=0.4)
+    # tasso di mortalità orsi se no pesci
+    delta = st.sidebar.slider('C', max_value=1.0, min_value=0.0, value=0.05)
+    # fattore n pesci per nuovo orso
+    gamma = st.sidebar.slider('D', max_value=2.0, min_value=0.0, value=0.1)
 
     # simulazione: spiegazione dei parametri
     st.write('''
@@ -70,10 +75,11 @@ if pagina == 'HOME':  # pagina home
         - y = numero di orsi \n
         
         Il significato dei parametri è il seguente:\n
-        - A: tasso di crescita dei pesci (x) quando non ci sono orsi
+        - A: tasso di crescita dei pesci (x) quando non ci sono orsi (y)
         - B: tasso di mortalità dei pesci (x) dovuto agli orsi (y)
-        - C: tasso di mortalità degli orsi(y) quando non ci sono i pesci (x)
-        - D: fattore che descrive quanti pesci (x) sono necessari per la nascita di un nuovo orso (y)
+        - C: fattore che descrive quanti pesci (x) sono necessari per la nascita di un nuovo orso (y)
+        - D: tasso di mortalità degli orsi(y) quando non ci sono i pesci (x) 
+        
 
         Nella barra laterale è possibile regolare i parametri e impostare le condizoni iniziali ossia il numero iniziale di orsi e di pesci che popolano il sistema al tempo $$t_0$$
     ''')
@@ -119,32 +125,31 @@ if pagina == 'HOME':  # pagina home
         line1, = ax1.plot(t, y[:, 0], color="b")
         line2, = ax2.plot(t, y[:, 1], color="r")
 
-        
         ax1.set_ylabel("Pesci *100")
         ax2.set_ylabel("Orsi *100")
         ax2.set_xlabel("Tempo")
 
-        f.suptitle('Andamento della popolazione\n',size=18)
+        f.suptitle('Andamento della popolazione\n', size=18)
 
         st.set_option('deprecation.showPyplotGlobalUse', False)
         st.pyplot()
     elif grafico_pop == 'Unico':
 
-        plt.plot(t, y[:, 0], color="b",label='Pesci')
-        plt.plot(t, y[:, 1], color="r", label ='Orsi')
+        plt.plot(t, y[:, 0], color="b", label='Pesci')
+        plt.plot(t, y[:, 1], color="r", label='Orsi')
 
-        plt.title('\nAndamento della popolazione\n',size=18)
+        plt.title('\nAndamento della popolazione\n', size=18)
         plt.ylabel("Pesci & Orsi *100")
         plt.xlabel("Tempo")
         plt.legend()
 
         st.set_option('deprecation.showPyplotGlobalUse', False)
         st.pyplot()
-    
-    if grafico_orbite==True:
-        plt.plot(y[:, 1],y[:, 0], color="black")
 
-        plt.title('\nGrafico delle traiettorie\n',size=18,)
+    if grafico_orbite == True:
+        plt.plot(y[:, 1], y[:, 0], color="black")
+
+        plt.title('\nGrafico delle traiettorie\n', size=18,)
         plt.ylabel("Orsi *100")
         plt.xlabel("Pesci *100")
 
