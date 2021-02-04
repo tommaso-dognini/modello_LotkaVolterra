@@ -4,6 +4,7 @@ from matplotlib import pyplot as plt
 from matplotlib.animation import FuncAnimation
 import matplotlib as mpl
 from scipy.integrate import odeint
+from PIL import Image
 
 # setto stile dei grafici
 mpl.style.use('seaborn')
@@ -208,6 +209,8 @@ if pagina == 'CODICE':
     ''')
 
 if pagina == 'CASO DI STUDIO: lupi e conigli':
+    img = Image.open('img1.jpg')
+    st.image(img,width=700)
     st.write('''
     ### Caso di studio: lupi e conigli
     Si consiglia di visionare la seguente simulazione:\n
