@@ -13,7 +13,8 @@ st.markdown("<h1 style='text-align: center; color: #b30000;'>Modello di Lokta-Vo
             unsafe_allow_html=True)
 
 st.sidebar.title('Menù\n')
-pagina = st.sidebar.radio('', ['HOME', 'CODICE'], index=0)
+pagina = st.sidebar.radio(
+    '', ['HOME', 'CASO DI STUDIO: lupi e conigli', 'CODICE'], index=0)
 
 
 if pagina == 'HOME':  # pagina home
@@ -25,7 +26,7 @@ if pagina == 'HOME':  # pagina home
     da Alfred J. Lotka nel 1925 e Vito Volterra nel 1926.Le equazioni hanno la forma:
     ''')
 
-    st.latex(r'{\displaystyle \displaystyle {\begin{cases}{\dfrac {\mathrm {d} x}{\mathrm {d} t}}=(A-By)x,\\{\dfrac {\mathrm {d} y}{\mathrm {d} t}}=(Cx-D)y,\end{cases}}}{\displaystyle \displaystyle {\begin{cases}{\dfrac {\mathrm {d} x}{\mathrm {d} t}}=(A-By)x,\\{\dfrac {\mathrm {d} y}{\mathrm {d} t}}=(Cx-D)y,\end{cases}}}')
+    st.latex(r'{\displaystyle \displaystyle {\begin{cases}{\dfrac {\mathrm {d} x}{\mathrm {d} t}}=(A-By)x,\\{\dfrac {\mathrm {d} y}{\mathrm {d} t}}=(Cx-D)y,\end{cases}}}')
 
     st.write('''\n
     dove le derivate:  **dx/dt** e **dy/dt** sono i tassi di crescita nel tempo delle popolazioni di prede e predatori, mentre i numeri 
@@ -44,13 +45,17 @@ if pagina == 'HOME':  # pagina home
     orsi = st.sidebar.number_input('N° iniziale di orsi', step=1, value=3)
 
     # tasso di crescita pesci
-    alpha = st.sidebar.slider('A', max_value=2.0, min_value=0.0, value=1.1)
+    alpha = st.sidebar.slider(
+        'A: tasso di crescita dei pesci (x)', max_value=2.0, min_value=0.0, value=1.1)
     # tasso di mortalita pesci
-    beta = st.sidebar.slider('B', max_value=2.0, min_value=0.0, value=0.4)
+    beta = st.sidebar.slider(
+        'B: tasso di mortalità dei pesci (x)', max_value=2.0, min_value=0.0, value=0.4)
     # tasso di mortalità orsi se no pesci
-    delta = st.sidebar.slider('C', max_value=1.0, min_value=0.0, value=0.05)
+    delta = st.sidebar.slider(
+        'C: fattore pesci (x) necessari per nuovo orso (y)', max_value=1.0, min_value=0.0, value=0.05)
     # fattore n pesci per nuovo orso
-    gamma = st.sidebar.slider('D', max_value=2.0, min_value=0.0, value=0.1)
+    gamma = st.sidebar.slider(
+        'D: tasso di mortalità degli orsi(y)', max_value=2.0, min_value=0.0, value=0.1)
 
     # simulazione: spiegazione dei parametri
     st.write('''
@@ -82,6 +87,11 @@ if pagina == 'HOME':  # pagina home
         
 
         Nella barra laterale è possibile regolare i parametri e impostare le condizoni iniziali ossia il numero iniziale di orsi e di pesci che popolano il sistema al tempo $$t_0$$
+        \n
+        ### 3.Situazioni particolari\n
+        - Condizione di equilibrio
+        - Simulazione di epidemia
+
     ''')
 
     # CALCOLI PER SIMULAZIONE
@@ -167,4 +177,16 @@ if pagina == 'CODICE':
     - Video che ho seguito per per scrivere il programma: https://www.youtube.com/watch?v=Zg9k9ijiYPA \n
     - Link alla pagina di Streamlit framework utilizzato per creazione webapp: https://www.streamlit.io/ \n
     - Link alla pagina Wikipedia: https://it.wikipedia.org/wiki/Equazioni_di_Lotka-Volterra \n
+    ''')
+
+if pagina == 'CASO DI STUDIO: lupi e conigli':
+    st.write('''
+    ### Caso di studio: lupi e conigli
+    Si consiglia di visionare la seguente simulazione:\n
+    http://www.shodor.org/interactivate/activities/RabbitsAndWolves/\n
+
+    \n Si tratta di una simulazione preda-predatore secondo il Modello Lokta-Volterra **implementato su una situazione reale**.\n 
+    La simulazione infatti introduce altri raparametri
+    che permettono di simulare la realtà con maggiore precisione; il modello Lokta-Volterra infatti analizza una situazione ideale di un sistema isolato con solo due popolazioni 
+    senza considerare per esempio possibili epidemie o la variabilità della disponibilità di cibo.\n
     ''')
