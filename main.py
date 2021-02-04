@@ -61,7 +61,7 @@ if pagina == 'HOME':  # pagina home
     st.write('''
         \n
         # **Simulazione** \n
-        ### 1. Applicazione del modello\n
+        ## 1. Applicazione del modello\n
         Consideriamo un sistema (isolato) popolato da due popolazioni: quella dei pesci (prede) e quella degli orsi (predatori).
         La simulazione di seguito proposta basandosi sul modello di Lokta-Volterra mostra graficamente l'andamento in funzione del tempo delle due popolazioni (pesci e orsi)
         che abitano il sistema preso in considerazione. Possiamo quindi ipotizzare che il comportamento di prede e predatori è il seguente:\n
@@ -74,7 +74,7 @@ if pagina == 'HOME':  # pagina home
         - Gli orsi aumentano se i pesci aumentano (hanno più cibo)
         - Gli orsi diminuiscono se i pesci diminuiscono (non possono mangiare)\n
 
-        ### 2.Regolazione dei parametri\n
+        ## 2. Regolazione dei parametri\n
         Detti:\n
         - x = numero di pesci\n
         - y = numero di orsi \n
@@ -88,10 +88,6 @@ if pagina == 'HOME':  # pagina home
 
         Nella barra laterale è possibile regolare i parametri e impostare le condizoni iniziali ossia il numero iniziale di orsi e di pesci che popolano il sistema al tempo $$t_0$$
         \n
-        ### 3.Situazioni particolari\n
-        - Condizione di equilibrio
-        - Simulazione di epidemia
-
     ''')
 
     # CALCOLI PER SIMULAZIONE
@@ -165,6 +161,38 @@ if pagina == 'HOME':  # pagina home
 
         st.set_option('deprecation.showPyplotGlobalUse', False)
         st.pyplot()
+
+    # casi particolari
+    st.write('''
+        ## 3. Situazioni particolari\n
+        
+        ### a) Condizione di equilibrio
+        *Si ha un punto di equilibrio nelle popolazioni quando il livello di entrambe rimane costante*, cioè quando
+        $x(t)=x_{0}$ e $y(t)=y_{0}$ per ogni tempo ${\displaystyle t}$, e di conseguenza le derivate
+         ${\displaystyle x'(t)}$ e ${\displaystyle y'(t)}$ sono uguali a zero.
+        Sostituendo questi valori nelle equazioni si ottengono le seguenti relazioni:
+        ''')
+    st.latex(r'{\begin{cases}0=(A-By_{0})x_{0}\\0=(Cx_{0}-D)y_{0}\end{cases}}')
+    st.write('''Risolvendo questo sistema di equazioni si trovano due soluzioni per la coppia $(x_0,y_0)$ corrispondenti a due punti di equilibrio:''')
+    st.latex(r'(x_{0},y_{0})=(0,0)\qquad (x_{0},y_{0})=(D/C,A/B)')
+    st.write('''
+        *Il primo corrisponde all'estinzione di entrambe le specie*: se le due popolazioni hanno 0 individui allora continueranno ad avere 0 individui in ogni istante successivo.
+        *Il secondo corrisponde invece alla situazione in cui i predatori incontrano e mangiano, in ogni unità di tempo, un numero di prede esattamente uguale al numero di prede che
+        nascono*, e questo numero di prede corrisponde proprio alla soglia critica di cibo che fa rimanere stazionaria la popolazione dei predatori.\n
+
+        **Esempi di equilibrio: regolazione parametri:**\n
+            n° orsi (y) = 1 con: A=B  --> A=1.00    B=1.00\n
+            n° pesci (x) = 2 con D=2C --> D=2.00    C=1.00
+        oppure\n
+            n° orsi (y) = 0\n
+            n° pesci (x) = 0\n
+        ### b) Simulazione di epidemia\n
+        Per una simulazione basata su una situazione reale consultare la pagina 'CASO DI STUDIO: lupi e conigli'.\n
+        In questo sistema ideale possibile *simulare un epidemia* per esempio *dei pesci* aumentandone (al massimo) il tasso di mortalità.
+        In questo modo si avrà uno scenario in cui i pesci esistenti muoiono per via degli orsi e difficilmente ne crescono altri; inoltre anche gli orsi muoio per mancanza di cibo.\n
+        Al contrario si potrebbe *simulare una malattia negli orsi* aumentando il loro tasso di mortalità; la situazione attesa in questo caso è la morte di tutta la popolazione di orsi e un notevole
+        aumento della popolazione dei pesci che per via della mancanza degli orsi muoiono molto meno (solo secondo il loro tasso di mortalità).\n
+    ''')
 
 
 if pagina == 'CODICE':
